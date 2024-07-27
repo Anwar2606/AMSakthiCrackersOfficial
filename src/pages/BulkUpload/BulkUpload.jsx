@@ -42,34 +42,7 @@ const BulkUpload = () => {
         continue;
       }
 
-      // let imageUrl = "";
-      // if (product.image) {
-      //   try {
-      //     const response = await fetch(product.image);
-      //     const blob = await response.blob();
-      //     const imageRef = ref(storage, `images/${product.image.split("/").pop()}`);
-      //     const uploadTask = uploadBytesResumable(imageRef, blob);
 
-      //     uploadTask.on(
-      //       "state_changed",
-      //       (snapshot) => {
-      //         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //         setUploadProgress(progress);
-      //       },
-      //       (error) => {
-      //         console.error("Error uploading image: ", error);
-      //       },
-      //       async () => {
-      //         imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-      //       }
-      //     );
-
-      //     await uploadTask;
-      //   } catch (error) {
-      //     console.error("Error uploading image: ", error);
-      //     continue;
-      //   }
-      // }
 
       const productData = {
         sno:product.sno,
@@ -77,7 +50,7 @@ const BulkUpload = () => {
         saleprice: parseFloat(product.saleprice),
         regularprice: parseInt(product.regularprice),
         category:product.category
-        // imageUrl: imageUrl
+        
       };
 
       if (isNaN(productData.saleprice) || isNaN(productData.regularprice)) {

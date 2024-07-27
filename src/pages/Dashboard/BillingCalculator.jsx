@@ -273,18 +273,10 @@ doc.text('State: 33-Tamil Nadu', 44, 49);
           // Reset font to normal
           doc.setFont('helvetica', 'normal');
           doc.setFontSize(9);
-          // Add the rest of the text
-          // doc.text(`Name: ${customerName}`, 23, 81);
-          // doc.text(`Address: ${customerAddress}`, 23, 90);
-          // doc.text(`State: ${customerState}`, 23,97);
-          // doc.text(`Phone: ${customerPhone}`, 23, 104);
-          // doc.text(`Email: ${customerEmail}`, 23, 111);
-          // Define the starting coordinates and line height
           const startX = 23;
           let startY = 71;
           const lineHeight = 8; // Adjust line height as needed
-          
-          // Define the labels and values
+         
           const labels = [
             'Name',
             'Address',
@@ -919,13 +911,7 @@ const OfficeCopy = async () => {
           // Reset font to normal
           doc.setFont('helvetica', 'normal');
           doc.setFontSize(9.5);
-          // Add the rest of the text
-          // doc.text(`Name: ${customerName}`, 23, 81);
-          // doc.text(`Address: ${customerAddress}`, 23, 90);
-          // doc.text(`State: ${customerState}`, 23,97);
-          // doc.text(`Phone: ${customerPhone}`, 23, 104);
-          // doc.text(`Email: ${customerEmail}`, 23, 111);
-          // Define the starting coordinates and line height
+      
           const startX = 23;
           let startY = 71;
           const lineHeight = 8; // Adjust line height as needed

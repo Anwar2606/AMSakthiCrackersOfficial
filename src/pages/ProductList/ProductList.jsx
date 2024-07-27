@@ -10,7 +10,7 @@ const ProductList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [category, setCategory] = useState(''); // State to hold the selected category
+  const [category, setCategory] = useState(''); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,10 +25,9 @@ const ProductList = () => {
       try {
         const querySnapshot = await getDocs(q);
         const fetchedProducts = await Promise.all(querySnapshot.docs.map(async (doc) => {
-          // const imageUrl = await getImageUrl(doc.id);
+          
           return {
             id: doc.id,
-            // imageUrl,
             ...doc.data(),
             expanded: false,
           };
@@ -70,31 +69,17 @@ const ProductList = () => {
   const handleNewProductClick = () => {
     navigate('/add');
   };
-
-  // const getImageUrl = async (productId) => {
-  //   try {
-  //     const storageRef = ref(storage, `images/${productId}.jpg`);
-  //     const url = await getDownloadURL(storageRef);
-  //     return url;
-  //   } catch (error) {
-  //     console.error("Error getting image URL: ", error);
-  //     return "";
-  //   }
-  // };
-
-  // Filter products based on searchTerm
   const filteredProducts = products.filter(product => 
-    product.name.toLowerCase().includes(searchTerm) // Convert product name to lowercase
-  );
+    product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    product.sno.toString().includes(searchTerm)
+);
 
   const deleteProduct = async (productId, event) => {
     event.stopPropagation();
 
     try {
       await deleteDoc(doc(db, "products", productId));
-      // const storageRef = ref(storage, `images/${productId}.jpg`);
-      // await deleteObject(storageRef);
-
+     
       setProducts(products.filter((product) => product.id !== productId));
     } catch (error) {
       console.error("Error deleting product: ", error);
@@ -123,8 +108,7 @@ const ProductList = () => {
     const promises = selectedProducts.map(async (productId) => {
       try {
         await deleteDoc(doc(db, "products", productId));
-        // const storageRef = ref(storage, `images/${productId}.jpg`);
-        // await deleteObject(storageRef);
+       
       } catch (error) {
         console.error("Error deleting product: ", error);
       }

@@ -1,76 +1,3 @@
-// import React, { useState } from 'react';
-// import { db, storage } from '../firebase'; 
-// import { collection, addDoc } from 'firebase/firestore';
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import './Addproduct.css'; // Import the CSS file
-
-// const AddProduct = () => {
-//   const [name, setName] = useState('');
-//   const [saleprice, setSalePrice] = useState('');
-//   const [regularprice, setRegularPrice] = useState('');
-
-//   const [quantity, setQuantity] = useState('');
-//   // const [image, setImage] = useState(null); // State to hold the selected image file
-
-//   const handleAddProduct = async (e) => {
-//     e.preventDefault();
-
-//     // Step 1: Upload the image to Firebase Storage
-//     try {
-//       // const storageRef = ref(storage, `images/${image.name}`);
-//       // await uploadBytes(storageRef, image);
-
-//       // Step 2: Get the download URL of the uploaded image
-//       // const imageUrl = await getDownloadURL(storageRef);
-
-//       // Step 3: Add product details including the image URL to Firestore
-//       await addDoc(collection(db, 'products'), {
-//         name,
-//         saleprice: parseFloat(saleprice),
-//         regularprice:parseFloat(regularprice),
-//         quantity: parseInt(quantity),
-//         // imageUrl, // Add the image URL to Firestore
-//         discount: 0,
-//       });
-
-//       // Step 4: Clear form fields and state
-//       setName('');
-//       setSalePrice('');
-//       setRegularPrice('');
-//       setQuantity('');
-//       // setImage(null);
-//       alert('Product added successfully!');
-//       window.location.reload();
-//     } catch (error) {
-//       console.error("Error adding product: ", error);
-//     }
-//   };
-
-//   // const handleImageChange = (e) => {
-//   //   if (e.target.files[0]) {
-//   //     setImage(e.target.files[0]);
-//   //   }
-//   // };
-
-//   return (
-//     <div className="add-product-page">
-//       <div className="add-product-container">
-//         <h2>Add Product</h2>
-//         <form onSubmit={handleAddProduct} className="add-product-form">
-//           <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required />
-//           <input type="number" value={saleprice} onChange={(e) => setSalePrice(e.target.value)} placeholder="Price" required />
-//           <input type="number" value={regularprice} onChange={(e) => setRegularPrice(e.target.value)} placeholder="Price" required />
-          
-//           <input type="text " value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="Quantity" required />
-//           {/* <input type="file" onChange={handleImageChange} accept="image/*" required /> File input for image upload */}
-//           <button type="submit">Add Product</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AddProduct;
 import React, { useState } from 'react';
 import { db } from '../firebase'; 
 import { collection, addDoc } from 'firebase/firestore';
@@ -82,8 +9,7 @@ const AddProduct = () => {
   const [saleprice, setSalePrice] = useState('');
   const [regularprice, setRegularPrice] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [category, setCategory] = useState(''); // State to hold the selected category
-
+  const [category, setCategory] = useState(''); 
   const handleAddProduct = async (e) => {
     e.preventDefault();
 

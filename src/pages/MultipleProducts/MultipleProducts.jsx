@@ -21,12 +21,7 @@ const ProductForm = () => {
     event.preventDefault();
     const productCollection = collection(db, "products");
 
-    // let imageUrl = "";
-    // if (product.image) {
-    //   const imageRef = ref(storage, `images/${product.image.name}`);
-    //   await uploadBytes(imageRef, product.image);
-    //   imageUrl = await getDownloadURL(imageRef);
-    // }
+  
 
     const docRef = await addDoc(productCollection, {
       name: product.name,

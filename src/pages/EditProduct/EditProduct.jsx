@@ -37,13 +37,7 @@ const EditProductPage = () => {
   };
 
   const handleUpdate = async () => {
-    // let imageUrl = product.imageUrl;
-
-    // if (image) {
-    //   const imageRef = ref(storage, `images/${id}.jpg`);
-    //   await uploadBytes(imageRef, image);
-    //   imageUrl = await getDownloadURL(imageRef);
-    // }
+   
 
     const productData = {
       name,

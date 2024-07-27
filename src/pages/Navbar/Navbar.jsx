@@ -10,9 +10,7 @@ const Navbar = () => {
           
         </h1>
       <ul className="navbar-list">
-      {/* <li className="navbar-item">
-          <Link to="/todaysales" className="navbar-link">Today Sales</Link>
-        </li> */}
+     
          <li className="navbar-item">
           <Link to="/home" className="navbar-link">Dashboard</Link>
         </li>
