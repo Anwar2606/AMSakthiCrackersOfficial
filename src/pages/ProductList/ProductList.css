@@ -117,7 +117,30 @@
   opacity: 0;
   transition: max-height 0.3s ease, opacity 0.3s ease;
 }
+.custom-select {
+  width: 95%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
 
+  /* For better appearance */
+  -webkit-appearance: none; /* Chrome, Safari, Opera */
+  -moz-appearance: none; /* Firefox */
+  appearance: none;
+}
+
+.custom-select:focus {
+  border-color: #007bff;
+}
+
+.custom-select option {
+  padding: 10px;
+}
 .product-item.expanded .product-description {
   max-height: 100px; /* Adjust as needed */
   opacity: 1;
