@@ -10,6 +10,7 @@ const firebaseConfig = {
   storageBucket: "mainbillingsoftware.appspot.com",
   messagingSenderId: "707236873656",
   appId: "1:707236873656:web:b89d3fe3955f96cf03bb4d"
+ 
 };
 
 const app = initializeApp(firebaseConfig);
