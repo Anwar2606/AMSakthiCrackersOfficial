@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase'; // Import the initialized firebase instance
-import { collection, getDocs, addDoc, Timestamp, setDoc, getDoc, doc } from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc, Timestamp, setDoc, getDoc, doc } from 'firebase/firestore';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './BillingCalculator.css'; // Import the CSS file
@@ -54,27 +54,37 @@ const BillingCalculator = () => {
 
     fetchProducts();
   }, []);
-  useEffect(() => {
+   useEffect(() => {
     const filterProducts = () => {
       let filtered = products;
 
+      // Filter by search term
       if (searchTerm) {
         filtered = filtered.filter(product => {
           const productName = product.name ? product.name.toLowerCase() : '';
           const productCode = product.sno ? product.sno.toLowerCase() : '';
-          return productName.includes(searchTerm) || productCode.includes(searchTerm);
+          return productName.includes(searchTerm.toLowerCase()) || productCode.includes(searchTerm.toLowerCase());
         });
       }
 
+      // Filter by category
       if (category) {
         filtered = filtered.filter(product => product.category === category);
       }
+
+      // Sort filtered products alphabetically
+      filtered.sort((a, b) => {
+        const nameA = a.name.toUpperCase(); // Convert to uppercase to ensure case-insensitive comparison
+        const nameB = b.name.toUpperCase();
+        return nameA.localeCompare(nameB, undefined, { numeric: true });
+      });
 
       setFilteredProducts(filtered);
     };
 
     filterProducts();
   }, [searchTerm, category, products]);
+
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
@@ -189,6 +199,15 @@ function formatGrandTotal(amount) {
   return `${Math.floor(amount).toString()}.00`;
 }
 const saveBillingDetails = async (newInvoiceNumber) => {
+  if (!newInvoiceNumber) {
+    alert("Invoice number is required.");
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert("Cart is empty. Cannot generate invoice.");
+    return;
+  }
   const billingDocRef = collection(db, 'billing');
   try {
     await addDoc(billingDocRef, {
@@ -1107,32 +1126,32 @@ return productName.includes(term) || productCode.includes(term);
           onChange={handleSearch}
           className="search-input"
         />
-           <select  className="custom-select1" onChange={handleCategoryChange} value={category}>
-           <option value="">All Category</option>
-        <option value="ONE SOUND CRACKERS">ONE SOUND CRACKERS</option>
-        <option value="SPARKLERS RAMS HQ">SPARKLERS RAMS HQ</option>
-        <option value="RAMESH SPARKLERS SPL">RAMESH SPARKLERS SPL</option>
-        <option value="FLOWER POTS HQ">FLOWER POTS HQ</option>
-        <option value="FLOWER POTS VARSHINI">FLOWER POTS VARSHINI</option>
-        <option value="GROUND CHAKKARS VARSHINI">GROUND CHAKKARS VARSHINI</option>
-        <option value="FANCY CHAKKARS ">FANCY CHAKKARS</option>
-        <option value="FMUD POTS MERCURY SPL">FMUD POTS MERCURY  SPL</option>
-        <option value="T.STARS / CANDLE / PENCIL">T.STARS / CANDLE / PENCIL</option>
-        <option value="DIGITAL WALAS">DIGITAL WALAS</option>
-        <option value="STARVELL COLOURFUL COLLECTIONS">STARVELL COLOURFUL COLLECTIONS</option>
-        <option value="DAMO FW KIDS NEW COLLECTIONS">DAMO FW KIDS NEW COLLECTIONS</option>
-        <option value="VANITHA FIREWORKS">VANITHA FIREWORKS</option>
-        <option value="CHANK BRAND RAVINDRA FW">CHANK BRAND RAVINDRA FW</option>
-        <option value="COLOURFUL PEACOCK COLLECTION">COLOURFUL PEACOCK COLLECTIO</option>
-        <option value="RAMESH COLOUR MATCHES">RAMESH COLOUR MATCHES</option>
-        <option value="ASSORTED KIDS FANCY SPL ">ASSORTED KIDS FANCY SPL</option>
-        <option value="ASSORTED FANCY NOVELTIES">ASSORTED FANCY NOVELTIES</option>
-        <option value="FANCY FOUNTAINS">FANCY FOUNTAINS</option>
-        <option value="BOMBS">BOMBS</option>
-        <option value="MULTIPLE MULTI COLOUR SHOTS">MULTIPLE MULTI COLOUR SHOTS</option>
-        <option value="MEGA PREMIUM SINGLE PIPES">MEGA PREMIUM SINGLE PIPES</option>
-        <option value="WILLOW'S FOCUS SPL GIFT BOXES">WILLOW'S FOCUS SPL GIFT BOXES</option>
-</select>
+            <select className="custom-select" value={category} onChange={handleCategoryChange}>
+        <option value="">All Products</option>
+        <option value="ONE & TWO SOUND CRACKERS">ONE & TWO SOUND CRACKERS</option>
+        <option value="GROUND CHAKKAR">GROUND CHAKKAR</option>
+        <option value="FLOWER POTS">FLOWER POTS</option>
+        <option value="BOMB">BOMB</option>
+        <option value="TWINKLING STAR">TWINKLING STAR</option>
+        <option value="MAGIC PENCIL">MAGIC PENCIL</option>
+        <option value="ROCKETS">ROCKETS</option>
+        <option value="FOUNTAIN">FOUNTAIN</option>
+        <option value="MATCH BOX">MATCH BOX</option>
+        <option value="KIDS FANCY">KIDS FANCY</option>
+        <option value="DELUXE CRACKERS">DELUXE CRACKERS</option>
+        <option value="MULTI COLOUR SHOTS">MULTI COLOUR SHOTS</option>
+        <option value="SPARKLES">SPARKLES</option>
+        <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
+        <option value="2 COMET">2" COMET</option>
+        <option value="2 COMET - 3 PCS">2" COMET - 3 PCS</option>
+        <option value="4 COMET - 2 PCS">4" COMET - 2 PCS</option>
+        <option value="31/2 COMETS">31/2" COMETS</option>
+        <option value="CHOTTA FANCY">CHOTTA FANCY</option>
+        <option value="RIDER">RIDER</option>
+        <option value="DIGITAL LAR (WALA)">DIGITAL LAR (WALA)</option>
+        <option value="PEPPER BOMB">PEPPER BOMB</option>
+        <option value="GIFT BOX VARIETIES">GIFT BOX VARIETIES</option>
+      </select>
         <ul>
           {filteredProducts.map(product => (
             <li key={product.id}>
