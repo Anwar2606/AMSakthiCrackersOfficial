@@ -20,13 +20,13 @@ const SalesComparisonChart = () => {
       const endOfYesterday = new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate(), 23, 59, 59, 999);
 
       const todaySalesQuery = query(
-        collection(db, "billing"),
+        collection(db, "customerBilling"),
         where("date", ">=", startOfToday),
         where("date", "<=", endOfToday)
       );
 
       const yesterdaySalesQuery = query(
-        collection(db, "billing"),
+        collection(db, "customerBilling"),
         where("date", ">=", startOfYesterday),
         where("date", "<=", endOfYesterday)
       );

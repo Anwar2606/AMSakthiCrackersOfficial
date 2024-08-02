@@ -8,6 +8,7 @@ import 'jspdf-autotable';
 import SalesComparisonChart from '../Chart/SalesComparisonChart';
 import Grid from '../Grid/Grid';
 import './HomePage.css';  
+import RevenueProgress from '../RevenueProgress/RevenueProgress';
 
 const Homepage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,7 +27,7 @@ const Homepage = () => {
     const endTimestamp = Timestamp.fromDate(endOfDay);
   
     const detailsQuery = query(
-      collection(db, 'billing'),
+      collection(db, 'customerBilling'),
       where('date', '>=', startTimestamp),
       where('date', '<=', endTimestamp)
     );
@@ -211,96 +212,98 @@ const Homepage = () => {
   };
 
 
-return (
-  <div>
-    <Grid />
-    <SalesComparisonChart />
-    <h2 style={{position:"relative",left:"20px"}}>Details By Date</h2>
-    <DatePicker
-      selected={selectedDate}
-      onChange={(date) => setSelectedDate(date)}
-      dateFormat="dd/MM/yyyy"
-      className="custom-date"
-    />
-    <button onClick={handleDownloadPDF} className="download-button">Download Today's Data</button>
-    {loading ? (
-      <p>Loading...</p>
-    ) : (
-      <div className="table-container">
-        {details.length === 0 ? (
-          <p>No details recorded on this date.</p>
-        ) : (
-          <table className="details-table">
-            <thead>
-              <tr>
-                <th>Customer Name</th>
-                <th>Discount Amount</th>
-                <th>CGST Amount</th>
-                <th>SGST Amount</th>
-                <th>IGST Amount</th>
-                <th>Total Amount</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {details.map(detail => (
-                <tr key={detail.id}>
-                  <td>
-                    {editingDetail && editingDetail.id === detail.id ? (
-                      <input
-                        type="text"
-                        value={editingDetail.customerName}
-                        onChange={(e) => setEditingDetail({ ...editingDetail, customerName: e.target.value })}
-                      />
-                    ) : (
-                      detail.customerName
-                    )}
-                  </td>
-                  <td>₹{detail.discountedTotal ? detail.discountedTotal.toFixed(2) : 'N/A'}</td>
-                  <td>₹{detail.cgstAmount ? detail.cgstAmount.toFixed(2) : 'N/A'}</td>
-                  <td>₹{detail.sgstAmount ? detail.sgstAmount.toFixed(2) : 'N/A'}</td>
-                  <td>₹{detail.igstAmount ? detail.igstAmount.toFixed(2) : 'N/A'}</td>
-                  <td>
-                    {editingDetail && editingDetail.id === detail.id ? (
-                      <input
-                        type="text"
-                        value={editingDetail.totalAmount}
-                        onChange={(e) => setEditingDetail({ ...editingDetail, totalAmount: e.target.value })}
-                      />
-                    ) : (
-                      `₹${detail.totalAmount}`
-                    )}
-                  </td>
-                  <td className="button-cell">
-                    {editingDetail && editingDetail.id === detail.id ? (
-                      <>
-                        <button className="action-button" onClick={handleSave}>Save</button>
-                        <button className="action-button" onClick={handleCancelEdit}>Cancel</button>
-                      </>
-                    ) : (
-                      <button className="action-button" onClick={() => handleEdit(detail)}><i className="fas fa-edit"></i></button>
-                    )}
-                    <button className="action-button" onClick={() => handleDelete(detail.id)}><i className="fas fa-trash-alt"></i></button>
-                    <button className="action-button" onClick={() => handleGeneratePDF(detail)}><i className="fa fa-download"></i></button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        
-        )}
-         
+  return (
+    <div className="homepage-container">
+      <Grid/>
+      <div className="grid-container">
+        <div className="sales-comparison-chart">
+          <SalesComparisonChart />
+        </div>
+        <div className="revenue-progress">
+          <RevenueProgress />
+        </div>
       </div>
-    )}
-     <a href='https://www.tamizhasolutions.com/'style={{
-    display: 'block',
-    textAlign: 'center',
-    color: 'grey',
-    textDecoration: 'none'
-  }}
->
-Developed by Tamizha Software Solutions</a>
-  </div>
-);
-};
+      <h2 className='dateTitle'>Details By Date</h2>
+      <div className="date-button-container">
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+          dateFormat="dd/MM/yyyy"
+          className="custom-date"
+        />
+        <button onClick={handleDownloadPDF} className="download-button">Download Today's Data</button>
+      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="table-container">
+          {details.length === 0 ? (
+            <p>No details recorded on this date.</p>
+          ) : (
+            <table className="details-table">
+              <thead>
+                <tr>
+                  <th>Customer Name</th>
+                  <th>Discount Amount</th>
+                  <th>CGST Amount</th>
+                  <th>SGST Amount</th>
+                  <th>IGST Amount</th>
+                  <th>Total Amount</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {details.map(detail => (
+                  <tr key={detail.id}>
+                    <td>
+                      {editingDetail && editingDetail.id === detail.id ? (
+                        <input
+                          type="text"
+                          value={editingDetail.customerName}
+                          onChange={(e) => setEditingDetail({ ...editingDetail, customerName: e.target.value })}
+                        />
+                      ) : (
+                        detail.customerName
+                      )}
+                    </td>
+                    <td>₹{detail.discountedTotal ? detail.discountedTotal.toFixed(2) : 'N/A'}</td>
+                    <td>₹{detail.cgstAmount ? detail.cgstAmount.toFixed(2) : 'N/A'}</td>
+                    <td>₹{detail.sgstAmount ? detail.sgstAmount.toFixed(2) : 'N/A'}</td>
+                    <td>₹{detail.igstAmount ? detail.igstAmount.toFixed(2) : 'N/A'}</td>
+                    <td>
+                      {editingDetail && editingDetail.id === detail.id ? (
+                        <input
+                          type="text"
+                          value={editingDetail.totalAmount}
+                          onChange={(e) => setEditingDetail({ ...editingDetail, totalAmount: e.target.value })}
+                        />
+                      ) : (
+                        `₹${detail.totalAmount}`
+                      )}
+                    </td>
+                    <td className="button-cell">
+                      {editingDetail && editingDetail.id === detail.id ? (
+                        <>
+                          <button className="action-button" onClick={handleSave}>Save</button>
+                          <button className="action-button" onClick={handleCancelEdit}>Cancel</button>
+                        </>
+                      ) : (
+                        <button className="action-button" onClick={() => handleEdit(detail)}><i className="fas fa-edit"></i></button>
+                      )}
+                      <button className="action-button" onClick={() => handleDelete(detail.id)}><i className="fas fa-trash-alt"></i></button>
+                      <button className="action-button" onClick={() => handleGeneratePDF(detail)}><i className="fa fa-download"></i></button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+      <a href='https://www.tamizhasolutions.com/' className="footer-link">
+        Developed by Tamizha Software Solutionss
+      </a>
+    </div>
+  );
+};  
 export default Homepage;

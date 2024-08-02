@@ -11,6 +11,7 @@ const EditProductPage = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [name, setName] = useState("");
+  const [sno, setSno] = useState("");
   const [regularprice, setRegularPrice] = useState(0);
   const [saleprice, setSalePrice] = useState(0);
   const [image, setImage] = useState(null);
@@ -23,6 +24,7 @@ const EditProductPage = () => {
         const productData = docSnap.data();
         setProduct(productData);
         setName(productData.name);
+        setSno(productData.sno);
         setRegularPrice(productData.regularprice);
         setSalePrice(productData.saleprice);
         // setQuantity(productData.quantity);
@@ -41,6 +43,7 @@ const EditProductPage = () => {
 
     const productData = {
       name,
+      sno,
       regularprice: parseFloat(regularprice),
       saleprice: parseInt(saleprice),
       // imageUrl,
@@ -64,6 +67,14 @@ const EditProductPage = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Product Name"
+      />
+      <label>Product code:</label>
+      <input
+      className="Edit-input1"
+        type="text"
+        value={sno}
+        onChange={(e) => setSno(e.target.value)}
+        placeholder="Product Code"
       />
       <label>Regular Price:</label>
       <input

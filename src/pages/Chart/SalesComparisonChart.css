@@ -1,20 +1,20 @@
-/* SalesComparisonChart.css */
 .chart-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 30px;
   padding: 20px;
   margin: 20px;
   transition: transform 0.3s ease;
+  width: 900px;
+  height: 400px;
 }
-
 .chart-container:hover {
   transform: scale(1.05);
 }
-
 .chart-header {
   font-size: 24px;
   font-weight: bold;
@@ -22,24 +22,20 @@
   margin-bottom: 20px;
   text-align: center;
 }
-
 .recharts-tooltip-wrapper .recharts-default-tooltip {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
+  /* background-color: #ffffff; */
+  /* border: 1px solid #ccc; */
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); */
 }
-
 .recharts-legend-wrapper {
   font-size: 14px;
   color: #666;
 }
-
 .recharts-bar-rectangle {
   rx: 4px;
   transition: transform 0.3s ease;
 }
-
 .recharts-bar-rectangle:hover {
   transform: scale(1.1);
 }

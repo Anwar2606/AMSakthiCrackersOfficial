@@ -51,6 +51,13 @@ const AddProduct = () => {
             required 
           />
           <input 
+            type="text" 
+            value={sno} 
+            onChange={(e) => setSno(e.target.value)} 
+            placeholder="Product code" 
+            required 
+          />
+          <input 
             type="number" 
             value={saleprice} 
             onChange={(e) => setSalePrice(e.target.value)} 
@@ -94,6 +101,7 @@ const AddProduct = () => {
               <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
               <option value="2 COMET">2" COMET</option>
               <option value="2 COMET - 3 PCS">2" COMET - 3 PCS</option>
+              <option value="4 COMET - 2 PCS">4" COMET - 2 PCS</option>
               <option value="31/2 COMETS">31/2" COMETS</option>
               <option value="CHOTTA FANCY">CHOTTA FANCY</option>
               <option value="RIDER">RIDER</option>

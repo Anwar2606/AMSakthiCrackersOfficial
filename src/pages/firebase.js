@@ -4,6 +4,9 @@ import { getStorage } from 'firebase/storage';
 import { getAuth } from 'firebase/auth'; 
 
 const firebaseConfig = {
+
+ 
+  
   apiKey: "AIzaSyCTkh1QhF08AJpohpG2QmPZxHtzA4wG3ME",
   authDomain: "mainbillingsoftware.firebaseapp.com",
   projectId: "mainbillingsoftware",

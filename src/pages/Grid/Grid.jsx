@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../firebase'; // Adjust path as per your setup
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileInvoice, faBox, faRupeeSign, faFileInvoiceDollar, faUser } from '@fortawesome/free-solid-svg-icons';
 import './Grid.css'; // Import CSS file for styling
 
 const Grid = () => {
@@ -90,22 +92,27 @@ const Grid = () => {
   return (
     <div className="metrics-dashboard">
       <div className="metric-card atm-card">
+        <FontAwesomeIcon icon={faFileInvoice} size="2x" />
         <h2 className="animated-text">Number of Bills</h2>
         <p className="animated-text">{numberOfBills}</p>
       </div>
       <div className="metric-card atm-card">
+        <FontAwesomeIcon icon={faBox} size="2x" />
         <h2 className="animated-text">Number of Products</h2>
         <p className="animated-text">{numberOfProducts}</p>
       </div>
       <div className="metric-card atm-card">
+        <FontAwesomeIcon icon={faRupeeSign} size="2x" />
         <h2 className="animated-text">Today's Total Amount</h2>
         <p className="animated-text">₹{todayTotalAmount}</p>
       </div>
       <div className="metric-card atm-card">
+        <FontAwesomeIcon icon={faFileInvoiceDollar} size="2x" />
         <h2 className="animated-text">Today's Number of Bills</h2>
         <p className="animated-text">{todayNumberOfBills}</p>
       </div>
       <div className="metric-card atm-card">
+        <FontAwesomeIcon icon={faUser} size="2x" />
         <h2 className="animated-text">Today's Number of Customer Bills</h2>
         <p className="animated-text">{todayNumberOfCustomerBills}</p>
       </div>
