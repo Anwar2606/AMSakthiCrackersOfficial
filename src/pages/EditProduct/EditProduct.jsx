@@ -195,7 +195,7 @@ const EditProductPage = () => {
       >
        <option value="" disabled>Select Category</option>
               <option value="ONE & TWO SOUND CRACKERS">ONE & TWO SOUND CRACKERS</option>
-              <option value="CGROUND CHAKKAR">GROUND CHAKKAR</option>
+              <option value="GROUND CHAKKAR">GROUND CHAKKAR</option>
               <option value="FLOWER POTS">FLOWER POTS</option>
               <option value="BOMB">BOMB</option>
               <option value="TWINKLING STAR">TWINKLING STAR</option>
@@ -205,7 +205,7 @@ const EditProductPage = () => {
               <option value="MATCH BOX">MATCH BOX</option>
               <option value="KIDS FANCY">KIDS FANCY</option>
               <option value="DELUXE CRACKERS">DELUXE CRACKERS</option>
-              <option value="MULTI COOUR SHOTS">MULTI COOUR SHOTS</option>
+              <option value="MULTI COLOUR SHOTS">MULTI COOUR SHOTS</option>
               <option value="SPARKLES">SPARKLES</option>
               <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
               <option value="2 COMET">2" COMET</option>

@@ -7,12 +7,12 @@ const firebaseConfig = {
 
  
   
-  apiKey: "AIzaSyCTkh1QhF08AJpohpG2QmPZxHtzA4wG3ME",
-  authDomain: "mainbillingsoftware.firebaseapp.com",
-  projectId: "mainbillingsoftware",
-  storageBucket: "mainbillingsoftware.appspot.com",
-  messagingSenderId: "707236873656",
-  appId: "1:707236873656:web:b89d3fe3955f96cf03bb4d"
+  apiKey: "AIzaSyDuuXgbYubht3Ba5Gl1oTjecz24DuaEsEQ",
+  authDomain: "mainbillingsoftware2.firebaseapp.com",
+  projectId: "mainbillingsoftware2",
+  storageBucket: "mainbillingsoftware2.appspot.com",
+  messagingSenderId: "495185796072",
+  appId: "1:495185796072:web:68e88b565fdc1b32cd225d"
  
 };
 
