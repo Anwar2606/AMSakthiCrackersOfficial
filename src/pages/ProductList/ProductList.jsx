@@ -11,7 +11,8 @@ const ProductList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
-  const [category, setCategory] = useState(''); 
+  const [category, setCategory] = useState('');
+  const [categoryCounts, setCategoryCounts] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +49,25 @@ const ProductList = () => {
       }
     };
 
+    const fetchCategoryCounts = async () => {
+      const productsCollectionRef = collection(db, "products");
+      const querySnapshot = await getDocs(productsCollectionRef);
+
+      const counts = {};
+      querySnapshot.forEach((doc) => {
+        const product = doc.data();
+        if (counts[product.category]) {
+          counts[product.category] += 1;
+        } else {
+          counts[product.category] = 1;
+        }
+      });
+
+      setCategoryCounts(counts);
+    };
+
     fetchProducts();
+    fetchCategoryCounts();
   }, [category]);
 
   const handleSearch = (event) => {
@@ -140,7 +159,7 @@ const ProductList = () => {
   const downloadPDF = () => {
     const sortedProducts = [...products].sort((a, b) => padSno(a.sno).localeCompare(padSno(b.sno)));
     const doc = new jsPDF();
-    const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price","Category"];
+    const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price", "Category"];
     const tableRows = [];
 
     sortedProducts.forEach((product, index) => {
@@ -168,31 +187,13 @@ const ProductList = () => {
         value={searchTerm}
         onChange={handleSearch}
       />
-         <select className="custom-select" value={category} onChange={handleCategoryChange}>
+      <select className="custom-select" value={category} onChange={handleCategoryChange}>
         <option value="">All Products</option>
-        <option value="ONE & TWO SOUND CRACKERS">ONE & TWO SOUND CRACKERS</option>
-        <option value="GROUND CHAKKAR">GROUND CHAKKAR</option>
-        <option value="FLOWER POTS">FLOWER POTS</option>
-        <option value="BOMB">BOMB</option>
-        <option value="TWINKLING STAR">TWINKLING STAR</option>
-        <option value="MAGIC PENCIL">MAGIC PENCIL</option>
-        <option value="ROCKETS">ROCKETS</option>
-        <option value="FOUNTAIN">FOUNTAIN</option>
-        <option value="MATCH BOX">MATCH BOX</option>
-        <option value="KIDS FANCY">KIDS FANCY</option>
-        <option value="DELUXE CRACKERS">DELUXE CRACKERS</option>
-        <option value="MULTI COLOUR SHOTS">MULTI COLOUR SHOTS</option>
-        <option value="SPARKLES">SPARKLES</option>
-        <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
-        <option value="2 COMET">2" COMET</option>
-        <option value="2 COMET - 3 PCS">2" COMET - 3 PCS</option>
-        <option value="4 COMET - 2 PCS">4" COMET - 2 PCS</option>
-        <option value="31/2 COMETS">31/2" COMETS</option>
-        <option value="CHOTTA FANCY">CHOTTA FANCY</option>
-        <option value="RIDER">RIDER</option>
-        <option value="DIGITAL LAR (WALA)">DIGITAL LAR (WALA)</option>
-        <option value="PEPPER BOMB">PEPPER BOMB</option>
-        <option value="GIFT BOX VARIETIES">GIFT BOX VARIETIES</option>
+        {Object.keys(categoryCounts).map((cat) => (
+          <option key={cat} value={cat}>
+            {cat} ({categoryCounts[cat]})
+          </option>
+        ))}
       </select>
       <div className="button-row">
         <button className="select-all-button" onClick={handleSelectAll}>
