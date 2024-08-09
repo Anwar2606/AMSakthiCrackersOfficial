@@ -13,12 +13,12 @@ const firebaseConfig = {
 //   messagingSenderId: "1086229411180",
 //   appId: "1:1086229411180:web:4a835dadcfb73b08a42f49"   
   //main
-  apiKey: "AIzaSyBkFN60r2kntuFoGggyNdExFUJJsdR1a9o",
-  authDomain: "mainbillingsofteware3.firebaseapp.com",
-  projectId: "mainbillingsofteware3",
-  storageBucket: "mainbillingsofteware3.appspot.com",
-  messagingSenderId: "680763768979",
-  appId: "1:680763768979:web:e462416068b88177058d66"
+  apiKey: "AIzaSyDlnBpY-2AhQEq2G3KBkWWxWtP3SRYLmAM",
+  authDomain: "mainbillingsoftware4.firebaseapp.com",
+  projectId: "mainbillingsoftware4",
+  storageBucket: "mainbillingsoftware4.appspot.com",
+  messagingSenderId: "174898047126",
+  appId: "1:174898047126:web:2937c0a0784d8a1c243ab7"
  
 };
 
