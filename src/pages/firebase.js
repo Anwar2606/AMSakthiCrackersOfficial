@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
 
   //testing
-//   apiKey: "AIzaSyCTmFMUSQL_lvxZSGzihrx5G7AypB4Uk5Q",
-//   authDomain: "testing-855ce.firebaseapp.com",
-//   projectId: "testing-855ce",
-//   storageBucket: "testing-855ce.appspot.com",
-//   messagingSenderId: "1086229411180",
-//   appId: "1:1086229411180:web:4a835dadcfb73b08a42f49"   
+  // apiKey: "AIzaSyCTmFMUSQL_lvxZSGzihrx5G7AypB4Uk5Q",
+  // authDomain: "testing-855ce.firebaseapp.com",
+  // projectId: "testing-855ce",
+  // storageBucket: "testing-855ce.appspot.com",
+  // messagingSenderId: "1086229411180",
+  // appId: "1:1086229411180:web:4a835dadcfb73b08a42f49"   
   //main
   apiKey: "AIzaSyDlnBpY-2AhQEq2G3KBkWWxWtP3SRYLmAM",
   authDomain: "mainbillingsoftware4.firebaseapp.com",

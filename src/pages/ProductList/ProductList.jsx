@@ -157,25 +157,58 @@ const ProductList = () => {
   };
 
   const downloadPDF = () => {
-    const sortedProducts = [...products].sort((a, b) => padSno(a.sno).localeCompare(padSno(b.sno)));
     const doc = new jsPDF();
-    const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price", "Category"];
-    const tableRows = [];
+    const sortedProducts = [...products].sort((a, b) => padSno(a.sno).localeCompare(padSno(b.sno)));
 
-    sortedProducts.forEach((product, index) => {
-      const productData = [
-        product.sno,
-        product.name,
-        `Rs.${product.regularprice.toFixed(2)}`,
-        `Rs.${product.saleprice.toFixed(2)}`,
-        product.category
-      ];
-      tableRows.push(productData);
+    const groupedProducts = sortedProducts.reduce((acc, product) => {
+        if (!acc[product.category]) {
+            acc[product.category] = [];
+        }
+        acc[product.category].push(product);
+        return acc;
+    }, {});
+
+    let startY = 10;
+
+    Object.keys(groupedProducts).forEach((category) => {
+        // Add category title
+        doc.setFontSize(16);
+        doc.text(category, 14, startY);
+        startY += 10;
+
+        // Create table for the category
+        const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price", "Category"];
+        const tableRows = [];
+
+        groupedProducts[category].forEach((product) => {
+            const productData = [
+                product.sno,
+                product.name,
+                `Rs.${product.regularprice.toFixed(2)}`,
+                `Rs.${product.saleprice.toFixed(2)}`,
+                product.category
+            ];
+            tableRows.push(productData);
+        });
+
+        doc.autoTable({
+            head: [tableColumn],
+            body: tableRows,
+            startY: startY,
+            theme: 'striped',
+            margin: { top: 10 },
+            didDrawPage: function (data) {
+                startY = data.cursor.y + 10;
+            }
+        });
+
+        // Adjust startY for the next category
+        startY = doc.previousAutoTable.finalY + 10;
     });
 
-    doc.autoTable(tableColumn, tableRows, { startY: 10 });
     doc.save("Product_List.pdf");
-  };
+};
+
 
   return (
     <div className="product-list-container">
