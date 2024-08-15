@@ -256,11 +256,11 @@ const generatePDF = (copyType, invoiceNumber) => {
     doc.setFont('helvetica', 'bold');
     doc.text('Phone number:', 44, 35); // Regular text
    doc.setFont('helvetica', 'normal');
-   doc.text('8098892999', 68, 35); // Bold text
+   doc.text('+91 81100 85110', 68, 35); // Bold text
     doc.setFont('helvetica', 'bold');
     doc.text('Email:', 44, 42);
     doc.setFont('helvetica', 'normal');
-    doc.text('hariprakashtex@gmail.com', 54, 42);
+    doc.text('amsakthipyropark@gmail.com', 54, 42);
     doc.setFont('helvetica', 'bold');
     doc.text('State:', 44, 49);
     doc.setFont('helvetica', 'normal');
@@ -276,7 +276,7 @@ doc.setFont('helvetica', 'normal');
 doc.setFontSize(9);
 doc.text(`Date: ${currentDate.toLocaleDateString()}`, 138, 36);
 doc.setFont('helvetica', 'bold');
-doc.text('GSTIN: 33AEGFS0424L1Z4', 138, 49);
+doc.text('GSTIN: 33ACCFA8234EIZT', 138, 49);
 
 
 doc.rect(14, 15, 182, 40  );
@@ -687,11 +687,11 @@ const CustomerCopy = async () => {
     doc.setFont('helvetica', 'bold');
     doc.text('Phone number:', 44, 35); // Regular text
    doc.setFont('helvetica', 'normal');
-   doc.text('8098892999', 68, 35); // Bold text
+   doc.text('+91 81100 85110', 68, 35); // Bold text
     doc.setFont('helvetica', 'bold');
     doc.text('Email:', 44, 42);
     doc.setFont('helvetica', 'normal');
-    doc.text('hariprakashtex@gmail.com', 54, 42);
+    doc.text('amsakthipyropark@gmail.com', 54, 42);
     doc.setFont('helvetica', 'bold');
     doc.text('State:', 44, 49);
     doc.setFont('helvetica', 'normal');
@@ -707,7 +707,7 @@ doc.setFont('helvetica', 'normal');
 doc.setFontSize(9);
 doc.text(`Date: ${currentDate.toLocaleDateString()}`, 138, 36);
 doc.setFont('helvetica', 'bold');
-doc.text('GSTIN: 33AEGFS0424L1Z4', 138, 49);
+doc.text('GSTIN: 33ACCFA8234EIZT', 138, 49);
 
 
 doc.rect(14, 15, 182, 40  );

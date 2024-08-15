@@ -13,6 +13,8 @@ const TodaySales = () => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingDetail, setEditingDetail] = useState(null); // Track currently editing detail
+  const [billingCount, setBillingCount] = useState(0); // Count for billing collection
+  const [customerBillingCount, setCustomerBillingCount] = useState(0); // Count for customerBilling collection
 
   const fetchDetails = async () => {
     setLoading(true);
@@ -24,16 +26,26 @@ const TodaySales = () => {
     const startTimestamp = Timestamp.fromDate(startOfDay);
     const endTimestamp = Timestamp.fromDate(endOfDay);
 
-    const detailsQuery = query(
+    const billingQuery = query(
       collection(db, 'billing'),
       where('date', '>=', startTimestamp),
       where('date', '<=', endTimestamp)
     );
 
+    const customerBillingQuery = query(
+      collection(db, 'customerBilling'),
+      where('date', '>=', startTimestamp),
+      where('date', '<=', endTimestamp)
+    );
+
     try {
-      const querySnapshot = await getDocs(detailsQuery);
-      const detailsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setDetails(detailsData);
+      const billingSnapshot = await getDocs(billingQuery);
+      const billingData = billingSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setDetails(billingData);
+      setBillingCount(billingSnapshot.size); // Set the count for billing collection
+
+      const customerBillingSnapshot = await getDocs(customerBillingQuery);
+      setCustomerBillingCount(customerBillingSnapshot.size); // Set the count for customerBilling collection
     } catch (error) {
       console.error('Error fetching details: ', error);
     } finally {
@@ -182,6 +194,8 @@ const TodaySales = () => {
         <p>Loading...</p>
       ) : (
         <div className="table-container">
+          <p>Total Bills in Billing: {billingCount}</p>
+          <p>Total Bills in Customer Billing: {customerBillingCount}</p>
           {details.length === 0 ? (
             <p>No details recorded on this date.</p>
           ) : (
@@ -224,10 +238,14 @@ const TodaySales = () => {
                           onChange={(e) => setEditingDetail({ ...editingDetail, totalAmount: e.target.value })}
                         />
                       ) : (
-                        `₹${detail.totalAmount}`
+                        `₹${detail.totalAmount ? detail.totalAmount.toFixed(2) : 'N/A'}`
                       )}
                     </td>
-                    <td>{new Date(detail.date.seconds * 1000).toLocaleString()}</td>
+                    <td>
+                      {detail.date instanceof Timestamp
+                        ? detail.date.toDate().toLocaleDateString()
+                        : detail.date || 'N/A'}
+                    </td>
                     <td>
                       {editingDetail && editingDetail.id === detail.id ? (
                         <>
@@ -235,10 +253,12 @@ const TodaySales = () => {
                           <button onClick={handleCancelEdit}>Cancel</button>
                         </>
                       ) : (
-                        <button onClick={() => handleEdit(detail)}>Edit</button>
+                        <>
+                          <button onClick={() => handleEdit(detail)}>Edit</button>
+                          <button onClick={() => handleDelete(detail.id)}>Delete</button>
+                          <button onClick={() => handleGeneratePDF(detail)}>Generate PDF</button>
+                        </>
                       )}
-                      <button onClick={() => handleDelete(detail.id)}>Delete</button>
-                      <button onClick={() => handleGeneratePDF(detail)}>Generate PDF</button>
                     </td>
                   </tr>
                 ))}
