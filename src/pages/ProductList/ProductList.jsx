@@ -217,70 +217,78 @@ const downloadPDF = () => {
   doc.setFontSize(18);
   doc.text("AM SAKTHI PYRO PARK", doc.internal.pageSize.width / 2, 15, null, null, 'center');
   doc.setTextColor(0, 0, 0);  
+
   // Add contact numbers on the left side
   doc.setFontSize(12);
   doc.text("Contact Numbers:", 14, 25);
   doc.text("+91 9629285776, +91 9488379722,", 14, 32);
-  doc.text("+91 9865134836, +91 9786615203",14,38)
+  doc.text("+91 9865134836, +91 9786615203", 14, 38);
+
   // Align G-Pay number and company phone number to the right side
   const pageWidth = doc.internal.pageSize.width;
   const rightMargin = 14; // Set the right margin
-  const gpayText = "G-Pay Number: 9110085110";
+  const gpayText = "G-Pay Number: 8110085110";
   const companyPhoneText = "Company Phone Number: +91 7397285110";
-  const Offer="75% Offer";
+  const Offer = "75% Offer";
   const gpayTextWidth = doc.getTextWidth(gpayText);
   const companyPhoneTextWidth = doc.getTextWidth(companyPhoneText);
   const companyOfferTextWidth = doc.getTextWidth(Offer);
   doc.text(gpayText, pageWidth - rightMargin - gpayTextWidth, 25);
   doc.text(companyPhoneText, pageWidth - rightMargin - companyPhoneTextWidth, 33);
-  doc.getFontSize(10);
+  doc.setFontSize(10);
   doc.text(Offer, pageWidth - rightMargin - companyOfferTextWidth, 40);
-  const sortedProducts = [...products].sort((a, b) => padSno(a.sno).localeCompare(padSno(b.sno)));
+
+  // Convert sno to string and sort products
+  const sortedProducts = [...products].sort((a, b) => {
+    const aSno = a.sno ? a.sno.toString() : '';
+    const bSno = b.sno ? b.sno.toString() : '';
+    return aSno.localeCompare(bSno);
+  });
 
   const groupedProducts = sortedProducts.reduce((acc, product) => {
-      if (!acc[product.category]) {
-          acc[product.category] = [];
-      }
-      acc[product.category].push(product);
-      return acc;
+    if (!acc[product.category]) {
+      acc[product.category] = [];
+    }
+    acc[product.category].push(product);
+    return acc;
   }, {});
 
   let startY = 50; // Start Y position after the contact information
 
   Object.keys(groupedProducts).forEach((category) => {
-      // Add category title
-      doc.setFontSize(16);
-      doc.text(category, 14, startY);
-      startY += 10;
+    // Add category title
+    doc.setFontSize(16);
+    doc.text(category, 14, startY);
+    startY += 10;
 
-      // Create table for the category
-      const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price", "Category"];
-      const tableRows = [];
+    // Create table for the category
+    const tableColumn = ["S.No", "Name", "Regular Price", "Sales Price", "Category"];
+    const tableRows = [];
 
-      groupedProducts[category].forEach((product) => {
-          const productData = [
-              product.sno,
-              product.name,
-              `Rs.${product.regularprice.toFixed(2)}`,
-              `Rs.${product.saleprice.toFixed(2)}`,
-              product.category
-          ];
-          tableRows.push(productData);
-      });
+    groupedProducts[category].forEach((product) => {
+      const productData = [
+        product.sno ? product.sno.toString() : '', // Ensure sno is a string
+        product.name,
+        `Rs. ${product.regularprice.toFixed(2)}`,
+        `Rs. ${product.saleprice.toFixed(2)}`,
+        product.category
+      ];
+      tableRows.push(productData);
+    });
 
-      doc.autoTable({
-          head: [tableColumn],
-          body: tableRows,
-          startY: startY,
-          theme: 'striped',
-          margin: { top: 10 },
-          didDrawPage: function (data) {
-              startY = data.cursor.y + 10;
-          }
-      });
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: startY,
+      theme: 'striped',
+      margin: { top: 10 },
+      didDrawPage: function (data) {
+        startY = data.cursor.y + 10;
+      }
+    });
 
-      // Adjust startY for the next category
-      startY = doc.previousAutoTable.finalY + 10;
+    // Adjust startY for the next category
+    startY = doc.previousAutoTable.finalY + 10;
   });
 
   doc.save("Product_List.pdf");
