@@ -213,30 +213,7 @@ const downloadPDF = () => {
   const doc = new jsPDF();
 
   // Add title at the top center of the PDF
-  doc.setTextColor("blue");
-  doc.setFontSize(18);
-  doc.text("AM SAKTHI PYRO PARK", doc.internal.pageSize.width / 2, 15, null, null, 'center');
-  doc.setTextColor(0, 0, 0);  
-
-  // Add contact numbers on the left side
-  doc.setFontSize(12);
-  doc.text("Contact Numbers:", 14, 25);
-  doc.text("+91 9629285776, +91 9488379722,", 14, 32);
-  doc.text("+91 9865134836, +91 9786615203", 14, 38);
-
-  // Align G-Pay number and company phone number to the right side
-  const pageWidth = doc.internal.pageSize.width;
-  const rightMargin = 14; // Set the right margin
-  const gpayText = "G-Pay Number: 8110085110";
-  const companyPhoneText = "Company Phone Number: +91 7397285110";
-  const Offer = "75% Offer";
-  const gpayTextWidth = doc.getTextWidth(gpayText);
-  const companyPhoneTextWidth = doc.getTextWidth(companyPhoneText);
-  const companyOfferTextWidth = doc.getTextWidth(Offer);
-  doc.text(gpayText, pageWidth - rightMargin - gpayTextWidth, 25);
-  doc.text(companyPhoneText, pageWidth - rightMargin - companyPhoneTextWidth, 33);
-  doc.setFontSize(10);
-  doc.text(Offer, pageWidth - rightMargin - companyOfferTextWidth, 40);
+ 
 
   // Convert sno to string and sort products
   const sortedProducts = [...products].sort((a, b) => {
@@ -253,7 +230,7 @@ const downloadPDF = () => {
     return acc;
   }, {});
 
-  let startY = 50; // Start Y position after the contact information
+  let startY = 20; // Start Y position after the contact information
 
   Object.keys(groupedProducts).forEach((category) => {
     // Add category title

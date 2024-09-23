@@ -1154,7 +1154,7 @@ return productName.includes(term) || productCode.includes(term);
         <option value="PEPPER BOMB">PEPPER BOMB</option>
         <option value="GIFT BOX VARIETIES">GIFT BOX VARIETIES</option>
       </select>
-        <ul>
+        {/* <ul>
           {filteredProducts.map(product => (
             <li key={product.id}>
               <div className="product-details">
@@ -1165,7 +1165,38 @@ return productName.includes(term) || productCode.includes(term);
               <button onClick={() => addToCart(product)}>Add to Cart</button>
             </li>
           ))}
-        </ul>
+        </ul> */}
+        <ul>
+  {filteredProducts
+    .sort((a, b) => {
+      // Sort sno as strings
+      return a.sno.localeCompare(b.sno, undefined, { numeric: true, sensitivity: 'base' });
+    })
+    .map(product => (
+      <li key={product.id}>
+        <div className="product-details">
+          <span>{product.name}</span>
+          <span>{`(Sales Rs. ${product.saleprice ? product.saleprice.toFixed(2) : '0.00'})`}</span>
+        </div>
+        <button onClick={() => addToCart(product)}>Add to Cart</button>
+      </li>
+    ))}
+</ul>
+
+  {/*}      <ul>
+   {filteredProducts
+    .sort((a, b) => excelOrder.indexOf(a.sno) - excelOrder.indexOf(b.sno)) // Sort based on Excel sheet order
+    .map(product => (
+      <li key={product.id}>
+        <div className="product-details">
+          <span>{product.name}</span>
+          <span>{`(Sales Rs. ${product.saleprice ? product.saleprice.toFixed(2) : '0.00'})`}</span>
+        </div>
+        <button onClick={() => addToCart(product)}>Add to Cart</button>
+      </li>
+    ))}
+</ul> */}
+
       </div>
       <div className="cart">
         <h2>Cart</h2>
