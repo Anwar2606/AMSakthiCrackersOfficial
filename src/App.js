@@ -60,7 +60,7 @@ const App = () => {
   return (
     
       <div>
-         <button style={{display:"none"}} onClick={handleDownload}>Download Data</button>
+         <button style={{display:"none "}}  onClick={handleDownload}>Download Data</button>
       {!isLoginPage && <Navbar />}
         <Routes>
         <Route path="/todaysales" element={<TodaySales />} />
