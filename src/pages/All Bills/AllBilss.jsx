@@ -422,7 +422,7 @@ doc.text(signatureText, signatureX, signatureY);
           <tr>
             <th>Invoice Number</th>
             <th>Customer Name</th>
-            <th>Total Amount</th>
+            
             <th>Date</th>
             <th>Actions</th>
           </tr>
@@ -437,7 +437,7 @@ doc.text(signatureText, signatureX, signatureY);
               <tr key={bill.id}>
                 <td>{bill.invoiceNumber}</td>
                 <td>{bill.customerName}</td>
-                <td>{bill.totalAmount}</td>
+                
                 <td>{createdAt}</td>
                 <td>
                   <FaDownload

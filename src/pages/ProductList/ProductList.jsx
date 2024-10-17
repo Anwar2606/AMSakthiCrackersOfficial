@@ -272,75 +272,69 @@ const downloadPDF = () => {
 };
 
 
-  return (
-    <div className="product-list-container">
-      <h2 className="product-list-title">Product List</h2>
-      <input
-        type="text"
-        className="product-list-input"
-        placeholder="Search products"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      <select className="custom-select" value={category} onChange={handleCategoryChange}>
-        <option value="">All Products</option>
-        {Object.keys(categoryCounts).map((cat) => (
-          <option key={cat} value={cat}>
-            {cat} ({categoryCounts[cat]})
-          </option>
-        ))}
-      </select>
-      <div className="button-row">
-        <button className="select-all-button" onClick={handleSelectAll}>
-          {selectAll ? "Deselect All" : "Select All"}
-        </button>
-        <button className="bulk-delete-button" onClick={bulkDeleteProducts}>
-          <i className="fas fa-trash-alt"></i> Bulk Delete
-        </button>
-        <button className="bulk-new-button" onClick={handleNewProductClick} style={{ position: "relative", left: "500px" }}>
-          <i className="fa fa-plus-circle"></i> New
-        </button>
-        <button className="bulk-upload-button" onClick={handleBulkUploadClick} style={{ position: "relative", left: "530px" }}>
-          <i className="fa fa-upload"></i> Bulk Upload
-        </button>
-        <button className="download-button2" onClick={downloadPDF} style={{ position: "relative", left: "560px" }}>
-          <i className="fa fa-download"></i> Download PDF
-        </button>
-      </div>
-      <ul className="product-list">
-        {filteredProducts.map((product) => (
-          <li key={product.id} className="product-item">
-            <input
-              type="checkbox"
-              className="product-checkbox"
-              checked={selectedProducts.includes(product.id)}
-              onChange={(event) => handleSelectProduct(event, product.id)}
-            />
-            <div className="product-info" onClick={() => toggleDescription(product.id)}>
-              <div className="products-details">
-                <div className="product-name">{product.name}</div>
-                {product.expanded && (
-                  <div className="product-description">{product.description}</div>
-                )}
-                <div className="product-price">Regular price: Rs.{product.regularprice.toFixed(2)}</div>
-                <div className="product-price">Sales price: Rs.{product.saleprice.toFixed(2)}</div>
-              </div>
-            </div>
-            <div className="product-actions">
-              <Link to={`/edit-product/${product.id}`}>
-                <button className="edit-button">
-                  <i className="fas fa-edit"></i> Edit
-                </button>
-              </Link>
-              <button className="delete-button" onClick={(event) => deleteProduct(product.id, event)}>
-                <i className="fas fa-trash-alt"></i> Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+return (
+  <div className="product-list-container">
+    <h2 className="product-list-title">Product List</h2>
+    <input
+      type="text"
+      className="product-list-input"
+      placeholder="Search products"
+      value={searchTerm}
+      onChange={handleSearch}
+    />
+    <select className="custom-select" value={category} onChange={handleCategoryChange}>
+      <option value="">All Category</option>
+      {/* Add your options */}
+    </select>
+    <div className="button-row">
+      <button className="select-all-button" onClick={handleSelectAll}>
+        {selectAll ? "Deselect All" : "Select All"}
+      </button>
+      <button className="bulk-delete-button" onClick={bulkDeleteProducts}>
+        <i className="fas fa-trash-alt"></i> Bulk Delete
+      </button>
+      <button className="bulk-new-button" onClick={handleNewProductClick}>
+        <i className="fa fa-plus-circle"></i> New
+      </button>
+      <button className="bulk-upload-button" onClick={handleBulkUploadClick}>
+        <i className="fa fa-upload"></i> Bulk Upload
+      </button>
+      <button className="download-button2" onClick={downloadPDF}>
+        <i className="fa fa-download"></i> Download PDF
+      </button>
     </div>
-  );
+    <ul className="product-list">
+      {filteredProducts.map((product) => (
+        <li key={product.id} className="product-item">
+          <input
+            type="checkbox"
+            className="product-checkbox"
+            checked={selectedProducts.includes(product.id)}
+            onChange={(event) => handleSelectProduct(event, product.id)}
+          />
+          <div className="product-info" onClick={() => toggleDescription(product.id)}>
+            <div className="products-details">
+              <div className="product-name">{product.name}</div>
+              {product.expanded && <div className="product-description">{product.description}</div>}
+              <div className="product-price">Regular price: ₹{product.regularprice.toFixed(2)}</div>
+              <div className="product-price">Sales price: ₹{product.saleprice.toFixed(2)}</div>
+            </div>
+          </div>
+          <div className="product-actions">
+            <Link to={`/edit-product/${product.id}`}>
+              <button className="edit-button">
+                <i className="fas fa-edit"></i>
+              </button>
+            </Link>
+            <button className="delete-button" onClick={(event) => deleteProduct(product.id, event)}>
+              <i className="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 };
 
 export default ProductList;

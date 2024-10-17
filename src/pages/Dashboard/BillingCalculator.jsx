@@ -1295,7 +1295,7 @@ return productName.includes(term) || productCode.includes(term);
           value={searchTerm}
           onChange={handleSearch}
           className="search-input"
-        />
+        /><br/>
             <select className="custom-select" value={category} onChange={handleCategoryChange}>
         <option value="">All Products</option>
         <option value="ONE & TWO SOUND CRACKERS">ONE & TWO SOUND CRACKERS</option>
@@ -1343,10 +1343,10 @@ return productName.includes(term) || productCode.includes(term);
     .map(product => (
       <li key={product.id}>
         <div className="product-details">
-          <span>{product.name}</span>
+          <span>{product.name}</span><br/>
           <span>{`(Sales Rs. ${product.saleprice ? product.saleprice.toFixed(2) : '0.00'})`}</span>
         </div>
-        <button onClick={() => addToCart(product)}>Add to Cart</button>
+        <button onClick={() => addToCart(product)}>+</button>
       </li>
     ))}
 </ul>
@@ -1380,7 +1380,7 @@ return productName.includes(term) || productCode.includes(term);
                   onChange={(e) => handleQuantityChange(item.productId, e.target.value)}
                 />
                 <span>Rs. {item.saleprice ? (item.saleprice * item.quantity).toFixed(2) : '0.00'}</span>
-                <button className="remove-button" onClick={() => handleRemoveFromCart(item.productId)}>Remove</button>
+                <button className="remove-button" onClick={() => handleRemoveFromCart(item.productId)}>X</button>
               </div>
             </li>
           ))}

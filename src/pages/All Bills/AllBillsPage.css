@@ -1,48 +1,175 @@
 .all-bills-page {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.bills-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.bills-table th,
+.bills-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.bills-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.bills-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.bills-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.icons-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.download-icon,
+.delete-icon {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.delete-icon {
+  color: red;
+}
+
+.icons-container .download-icon {
+  margin-right: 8px;
+}
+
+/* Date Filter */
+.date-filter {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  margin-bottom: 20px;
+  align-items: flex-start;
+  text-align: left; /* Ensure label text is aligned to the left */
+}
+
+.date-filter label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date-filter input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Make the input take full width */
+  box-sizing: border-box; /* Prevent input from overflowing */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .all-bills-page {
+    padding: 10px;
   }
-  
+
   h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 20px;
   }
-  
+
   .bills-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    font-size: 14px;
   }
-  
+
+  .bills-table th, 
+  .bills-table td {
+    padding: 6px;
+  }
+
+  .bills-table td {
+    word-wrap: break-word;
+  }
+
   .bills-table th,
   .bills-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    display: table-cell;
     text-align: left;
+    width: auto;
   }
-  
-  .bills-table th {
-    background-color: #f4f4f4;
-    color: #333;
+
+  .bills-table tr {
+    display: table-row;
   }
-  
-  .bills-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+  .download-icon, .delete-icon {
+    font-size: 16px;
+    margin-right: 6px;
   }
-  
-  .bills-table tr:hover {
-    background-color: #f1f1f1;
+
+  .icons-container {
+    justify-content: center;
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .download-icon,
-  .delete-icon {
-    cursor: pointer;
-    margin-right: 10px;
+
+  .download-icon {
+    margin-bottom: 8px;
+  }
+
+  .date-filter {
+    margin: 10px 0;
+  }
+
+  .date-filter label {
+    font-size: 14px;
+  }
+
+  .date-filter input[type="date"] {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
     font-size: 18px;
   }
-  
-  .delete-icon {
-    color: red;
+
+  .bills-table {
+    font-size: 12px;
   }
-  
+
+  .bills-table th, .bills-table td {
+    padding: 4px;
+  }
+
+  .download-icon, .delete-icon {
+    font-size: 14px;
+    margin-right: 4px;
+  }
+
+  .date-filter {
+    margin: 10px 0;
+  }
+
+  .date-filter label {
+    font-size: 12px;
+  }
+
+  .date-filter input[type="date"] {
+    font-size: 12px;
+  }
+}
