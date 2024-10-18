@@ -17,6 +17,8 @@ import LoginPage from './pages/Login/LoginPage';
 import fetchDataAndGenerateExcel from './pages/DownloadData/DownloadData';
 import AllBillsPage from './pages/All Bills/AllBilss';
 import InvoiceNumbersPage from './pages/Invoice Numbers/InvoiceNumbersPage';
+import DownloadFirestoreData from './pages/DownloadData/DownloadData';
+import UploadJSON from './pages/Upload Json/UploaadJson';
 
 
 
@@ -68,6 +70,8 @@ const App = () => {
           <Route path="/add" element={<AddProduct />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/grid" element={<Grid />} />
+          <Route path="/upload" element={<UploadJSON />} />
+          <Route path="/download" element={<DownloadFirestoreData />} />
           <Route path="/invoice" element={<InvoiceNumbersPage />} />
           <Route path="/allbills" element={<AllBillsPage />} />
           <Route path="/graph" element={<GraphComponent />} />

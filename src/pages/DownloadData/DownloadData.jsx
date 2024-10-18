@@ -1,16 +1,33 @@
+import React from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import * as XLSX from 'xlsx';
-import { db } from '../firebase';
+import { db } from '../firebase'; // Your Firebase config file
 
-async function fetchDataAndGenerateExcel(collectionName) {
-  const snapshot = await getDocs(collection(db, collectionName));
-  const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+const downloadFirestoreData = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'products'));
+    const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  // Convert data to Excel
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-  XLSX.writeFile(workbook, 'data.xlsx');
-}
+    const jsonData = JSON.stringify(data, null, 2); // for JSON downloadp
+    triggerDownload(jsonData, 'firestore_data.json');
+  } catch (error) {
+    console.error("Error fetching Firestore data: ", error);
+  }
+};
 
-export default fetchDataAndGenerateExcel;
+const triggerDownload = (content, fileName) => {
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName;
+  link.click();
+};
+
+const DownloadFirestoreData = () => {
+  return (
+    <div>
+      <button onClick={downloadFirestoreData}>Download Firestore Data</button>
+    </div>
+  );
+};
+
+export default DownloadFirestoreData;
